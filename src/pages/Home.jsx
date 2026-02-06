@@ -1,46 +1,20 @@
-import { useEffect } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
+import Modal from "../components/Modal";
+import heroImage from "../assets/heropic.png";
+import odishaTemplePuri from "../assets/download (1).webp";
+import odishaTempleKonark from "../assets/download.webp";
+import odishaTempleBhubaneswar from "../assets/width_800.webp";
+import odishaKiit from "../assets/kiit_.webp";
+import odishaKiss from "../assets/download (3).webp";
+import odishaAchyutya from "../assets/download (2).webp";
+import collabKiit from "../assets/kiitlogo.png";
+import collabIit from "../assets/iitbbsruniversity.png";
+import collabNewcastle from "../assets/newcastle.png";
+import scopusLogo from "../assets/Scopus_logo.svg.png";
 
-const SLIDES = [{ src: "/heropic.png", alt: "ICAMME 2026 Hero" }];
-
-const SERVICES = [
-  {
-    href: "/venue",
-    icon: "fa fa-car",
-    title: "Venue",
-    text: "How to reach us.",
-  },
-  {
-    href: "/committee",
-    icon: "fa fa-venus-double",
-    title: "Committees",
-    text: "Our organising members.",
-  },
-  {
-    href: "/accomodation",
-    icon: "fa fa-home",
-    title: "Accommodation",
-    text: "Nearby hotels.",
-  },
-  {
-    href: "/social",
-    icon: "fa fa-fort-awesome",
-    title: "Tourism",
-    text: "Places of interest in and around Bhubaneswar.",
-  },
-  {
-    href: "/visa",
-    icon: "fa fa-plane",
-    title: "Visa Information",
-    text: "How to get a visa.",
-  },
-  {
-    href: "/topics",
-    icon: "fa fa-file-text-o",
-    title: "Topics",
-    text: "List of topics on which you can submit the paper.",
-  },
-];
+const SLIDES = [{ src: heroImage, alt: "ICAMME 2026 Hero" }];
 
 const IMPORTANT_DATES = [
   { milestone: "Full Paper Submission Opens", date: "Feb 15, 2026" },
@@ -52,31 +26,24 @@ const IMPORTANT_DATES = [
 ];
 
 const ODISHA_CARDS = [
-  { title: "Jagannath Temple Puri", image: "/download (1).webp" },
-  { title: "Sun Temple Konark", image: "/download.webp" },
-  { title: "Lingaraj Temple Bhubaneswar", image: "/width_800.webp" },
+  { title: "Jagannath Temple Puri", image: odishaTemplePuri },
+  { title: "Sun Temple Konark", image: odishaTempleKonark },
+  { title: "Lingaraj Temple Bhubaneswar", image: odishaTempleBhubaneswar },
   {
     title: "Kalinga Institute of Industrial Technology Deemed to be University",
-    image: "/kiit_.webp",
+    image: odishaKiit,
   },
   {
     title:
       "KISS - Kalinga Institute of Social Sciences a home for over 80000 underprivileged tribal students",
-    image: "/download (3).webp",
+    image: odishaKiss,
   },
-  { title: "Achutya Samanta Founder KIIT & KISS", image: "/download (2).webp" },
+  { title: "Achutya Samanta Founder KIIT & KISS", image: odishaAchyutya },
 ];
 
 function HomeCarousel() {
-  useEffect(() => {
-    const $ = window.jQuery || window.$;
-    if ($ && $.fn && $.fn.carousel) {
-      $("#main-slide").carousel({ interval: 6000 });
-    }
-  }, []);
-
   return (
-    <div id="main-slide" className="carousel slide" data-ride="carousel">
+    <div id="main-slide" className="carousel slide">
       <div className="carousel-inner">
         {SLIDES.map((slide, index) => (
           <div
@@ -92,9 +59,9 @@ function HomeCarousel() {
                   <p>Kalinga Institute of Industrial Technology (KIIT)</p>
                   <p>Deemed to be University</p>
                   <p className="hero-date">10th–12th October, 2026</p>
-                  <a href="/paper" className="btn hero-cta">
+                  <Link to="/paper" className="btn hero-cta">
                     Submit Paper
-                  </a>
+                  </Link>
                 </div>
               </div>
             ) : (
@@ -111,6 +78,8 @@ function HomeCarousel() {
 }
 
 function Home() {
+  const [lightboxImage, setLightboxImage] = useState(null);
+
   return (
     <Layout
       headerVariant="home"
@@ -121,21 +90,31 @@ function Home() {
         <div className="container">
           <h2 className="collab-title">Collaborations</h2>
           <div className="collab-logos">
-            <img
-              className="collab-logo collab-logo-kiit"
-              src="/kiitlogo.png"
-              alt="KIIT"
-            />
-            <img
-              className="collab-logo collab-logo-iit"
-              src="/iitbbsruniversity.png"
-              alt="IIT Bhubaneswar"
-            />
-            <img
-              className="collab-logo collab-logo-newcastle"
-              src="/newcastle.png"
-              alt="Newcastle University Singapore"
-            />
+            <a href="https://kiit.ac.in/" target="_blank" rel="noreferrer">
+              <img
+                className="collab-logo collab-logo-kiit"
+                src={collabKiit}
+                alt="KIIT"
+              />
+            </a>
+            <a href="http://www.iitbbs.ac.in/" target="_blank" rel="noreferrer">
+              <img
+                className="collab-logo collab-logo-iit"
+                src={collabIit}
+                alt="IIT Bhubaneswar"
+              />
+            </a>
+            <a
+              href="https://www.ncl.ac.uk/singapore/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                className="collab-logo collab-logo-newcastle"
+                src={collabNewcastle}
+                alt="Newcastle University Singapore"
+              />
+            </a>
           </div>
         </div>
       </section>
@@ -186,7 +165,19 @@ function Home() {
               </ul>
             </div>
             <div className="publication-logo" aria-label="Scopus">
-              <img src="/Scopus_logo.svg.png" alt="Scopus" />
+              <button
+                type="button"
+                className="modal-trigger"
+                onClick={() =>
+                  setLightboxImage({
+                    title: "Scopus",
+                    image: scopusLogo,
+                  })
+                }
+                aria-label="Open Scopus logo"
+              >
+                <img src={scopusLogo} alt="Scopus" />
+              </button>
             </div>
           </div>
         </div>
@@ -208,7 +199,14 @@ function Home() {
           <div className="odisha-cards">
             {ODISHA_CARDS.map((card) => (
               <div className="odisha-card" key={card.title}>
-                <img src={card.image} alt={card.title} />
+                <button
+                  type="button"
+                  className="modal-trigger"
+                  onClick={() => setLightboxImage(card)}
+                  aria-label={`Open ${card.title} image`}
+                >
+                  <img src={card.image} alt={card.title} />
+                </button>
                 <div className="odisha-card-title">{card.title}</div>
               </div>
             ))}
@@ -234,6 +232,20 @@ function Home() {
           </p>
         </div>
       </section>
+
+      <Modal
+        open={Boolean(lightboxImage)}
+        onClose={() => setLightboxImage(null)}
+        title={lightboxImage?.title}
+      >
+        {lightboxImage && (
+          <img
+            className="modal-image"
+            src={lightboxImage.image}
+            alt={lightboxImage.title}
+          />
+        )}
+      </Modal>
     </Layout>
   );
 }

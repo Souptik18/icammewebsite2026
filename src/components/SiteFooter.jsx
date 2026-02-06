@@ -1,54 +1,51 @@
+import { Link } from "react-router-dom";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
+import brandLogo from "../assets/AMME-removebg-preview.png";
+
 function SiteFooter() {
   return (
     <>
       <footer className="footer-area section-padding">
         <div className="container">
           <div className="row">
-            <div
-              className="col-md-4 col-sm-6 col-xs-12 wow fadeInUp"
-              data-wow-delay="0.2s"
-            >
+            <div className="col-md-4 col-sm-6 col-xs-12">
               <h3>
-                <img
-                  src="/AMME-removebg-preview.png"
-                  alt="ICAMME"
-                  style={{ height: 110, width: 220 }}
-                />
+                <Link to="/">
+                  <img
+                    src={brandLogo}
+                    alt="ICAMME"
+                    style={{ width: 220, height: "auto" }}
+                  />
+                </Link>
               </h3>
               <p>
                 ICAMME - 2026 ,<br />
               </p>
             </div>
-            <div
-              className="col-md-4 col-sm-6 col-xs-12 wow fadeInUp"
-              data-wow-delay="0.4s"
-            >
+            <div className="col-md-4 col-sm-6 col-xs-12">
               <h3>QUICK LINKS</h3>
               <ul>
                 <li>
-                  <a href="/about">About</a>
+                  <Link to="/about">About</Link>
                 </li>
                 <li>
-                  <a href="/paper">Call for Paper</a>
+                  <Link to="/paper">Call for Paper</Link>
                 </li>
                 <li>
-                  <a href="/speakers">Speakers</a>
+                  <Link to="/speakers">Speakers</Link>
                 </li>
                 <li>
-                  <a href="/register">Registration</a>
+                  <Link to="/register">Registration</Link>
                 </li>
                 <li>
-                  <a href="/committee">Committee</a>
+                  <Link to="/committee">Committee</Link>
                 </li>
                 <li>
-                  <a href="/contact">Reach Us</a>
+                  <Link to="/contact">Reach Us</Link>
                 </li>
               </ul>
             </div>
-            <div
-              className="col-md-4 col-sm-6 col-xs-12 wow fadeInUp"
-              data-wow-delay="0.6s"
-            >
+            <div className="col-md-4 col-sm-6 col-xs-12">
               <h5 className="widget-title">FOLLOW US ON</h5>
               <ul className="footer-social">
                 <li>
@@ -57,8 +54,9 @@ function SiteFooter() {
                     href="https://www.facebook.com/KIITUniversity"
                     target="_blank"
                     rel="noreferrer"
+                    aria-label="Facebook"
                   >
-                    <i className="lni-facebook-filled" />
+                    <FaFacebookF aria-hidden="true" focusable="false" />
                   </a>
                 </li>
                 <li>
@@ -67,8 +65,9 @@ function SiteFooter() {
                     href="https://www.instagram.com/KIITUniversity"
                     target="_blank"
                     rel="noreferrer"
+                    aria-label="Instagram"
                   >
-                    <i className="lni-instagram-filled" />
+                    <FaInstagram aria-hidden="true" focusable="false" />
                   </a>
                 </li>
               </ul>

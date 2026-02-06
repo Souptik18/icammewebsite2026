@@ -2,9 +2,10 @@ import Layout from '../components/Layout'
 
 function Speakers() {
   return (
-    <Layout headerVariant="inner">
-      <section className="container page-section text-center">
-        <h2>Coming soon</h2>
+    <Layout headerVariant="inner" pageClassName="speakers-page">
+      <section className="container page-section">
+        <h2>Speakers</h2>
+        <p>Speaker details will be updated shortly.</p>
       </section>
     </Layout>
   )

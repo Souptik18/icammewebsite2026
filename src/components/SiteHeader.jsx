@@ -1,106 +1,151 @@
-import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
+import brandLogo from "../assets/AMME-removebg-preview.png";
+import kiitLogo from "../assets/logokiit.png";
+import newcastleLogo from "../assets/logonewcastle.png";
+import iitbbsrLogo from "../assets/iitbbsrlogo.png";
 
 const NAV_ITEMS = [
-  { label: 'About', href: '/about' },
-  { label: 'Call for Paper', href: '/paper' },
-  { label: 'Speakers', href: '/speakers' },
-  { label: 'Registration', href: '/register' },
-  { label: 'Commitee', href: '/committee' },
-  { label: 'Reach Us', href: '/contact' },
-]
+  { label: "About", href: "/about" },
+  { label: "Call for Paper", href: "/paper" },
+  { label: "Speakers", href: "/speakers" },
+  { label: "Registration", href: "/register" },
+  { label: "Committee", href: "/committee" },
+  { label: "Reach Us", href: "/contact" },
+];
+
+const PARTNER_LOGOS = [
+  {
+    href: "https://kiit.ac.in/",
+    src: kiitLogo,
+    alt: "KIIT",
+    className: "logo logo-kiit",
+  },
+  {
+    href: "https://www.ncl.ac.uk/singapore/",
+    src: newcastleLogo,
+    alt: "Newcastle University Singapore",
+    className: "logo logo-newcastle",
+    ariaLabel: "Newcastle University in Singapore",
+  },
+  {
+    href: "http://www.iitbbs.ac.in/",
+    src: iitbbsrLogo,
+    alt: "IIT Bhubaneswar",
+    className: "logo logo-iitbbsr",
+    ariaLabel: "IIT Bhubaneswar",
+  },
+];
 
 function SiteHeader({ children }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const location = useLocation()
-  const navClass = 'navbar navbar-expand-lg fixed-top scrolling-navbar navbar-glass'
-  const navItems = NAV_ITEMS
+  const location = useLocation();
+  const toggleRef = useRef(null);
+  const collapseRef = useRef(null);
+  const toggleBtnRef = useRef(null);
+  const navClass =
+    "navbar navbar-expand-lg fixed-top scrolling-navbar navbar-glass";
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      const toggle = toggleRef.current;
+      if (!toggle || !toggle.checked) return;
+      if (collapseRef.current?.contains(event.target)) return;
+      if (toggleRef.current?.contains(event.target)) return;
+      if (toggleBtnRef.current?.contains(event.target)) return;
+      toggle.checked = false;
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+    document.addEventListener("touchstart", handleOutsideClick);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+      document.removeEventListener("touchstart", handleOutsideClick);
+    };
+  }, []);
 
   return (
     <header id="header-wrap">
       <nav className={navClass}>
         <div className="container-fluid">
+          <input
+            ref={toggleRef}
+            className="nav-toggle"
+            id="nav-toggle"
+            type="checkbox"
+          />
           <div className="navbar-header">
-            <button
-              className="navbar-toggler"
-              type="button"
-              aria-controls="main-navbar"
-              aria-expanded={isOpen}
-              aria-label="Toggle navigation"
-              onClick={() => setIsOpen((open) => !open)}
-            >
-              <span className="navbar-toggler-icon" />
-              <span className="icon-menu" />
-              <span className="icon-menu" />
-              <span className="icon-menu" />
-            </button>
-            <a href="/" className="navbar-brand">
-              <img src="/AMME-removebg-preview.png" alt="ICAMME" />
-            </a>
-          </div>
-          <div className={`collapse navbar-collapse${isOpen ? ' show' : ''}`} id="main-navbar">
-            <button
-              className="mobile-menu-close"
-              type="button"
-              aria-label="Close navigation"
-              onClick={() => setIsOpen(false)}
-            >
-              ×
-            </button>
-            <ul className="navbar-nav mx-auto">
-              {navItems.map((item) => {
-                const itemHash = item.href.startsWith('/#') ? item.href.slice(1) : ''
-                const isHomePath = location.pathname === '/' || location.pathname === '/index.html'
-                const isActive =
-                  (itemHash && isHomePath && location.hash === itemHash) ||
-                  (!itemHash && location.pathname === item.href)
-                return (
-                  <li className={`nav-item${isActive ? ' active' : ''}`} key={item.label}>
-                  <a className="nav-link" href={item.href} onClick={() => setIsOpen(false)}>
-                    {item.label}
-                  </a>
-                </li>
-                )
-              })}
-            </ul>
-            <div className="mobile-partner-logos" aria-label="Partner logos">
-              <a href="https://kiit.ac.in/" target="_blank" rel="noreferrer">
-                <img className="logo logo-kiit" src="/logokiit.png" alt="KIIT" />
-              </a>
-              <a
-                href="https://www.ncl.ac.uk/singapore/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Newcastle University in Singapore"
-              >
-                <img className="logo logo-newcastle" src="/logonewcastle.png" alt="Newcastle University Singapore" />
-              </a>
-              <a href="http://www.iitbbs.ac.in/" target="_blank" rel="noreferrer" aria-label="IIT Bhubaneswar">
-                <img className="logo logo-iitbbsr" src="/iitbbsrlogo.png" alt="IIT Bhubaneswar" />
-              </a>
+            <div className="navbar-header-right">
+              <label
+                ref={toggleBtnRef}
+                className="nav-toggle-btn"
+                htmlFor="nav-toggle"
+                aria-label="Toggle menu"
+              />
+              <Link to="/" className="navbar-brand">
+                <img src={brandLogo} alt="ICAMME" />
+              </Link>
             </div>
           </div>
+
+          <div ref={collapseRef} className="navbar-collapse" id="main-navbar">
+            <ul className="navbar-nav mx-auto">
+              {NAV_ITEMS.map((item) => {
+                const itemHash = item.href.startsWith("/#")
+                  ? item.href.slice(1)
+                  : "";
+                const isHomePath =
+                  location.pathname === "/" ||
+                  location.pathname === "/index.html";
+                const isActive =
+                  (itemHash && isHomePath && location.hash === itemHash) ||
+                  (!itemHash && location.pathname === item.href);
+                return (
+                  <li
+                    className={`nav-item${isActive ? " active" : ""}`}
+                    key={item.label}
+                  >
+                    <Link className="nav-link" to={item.href}>
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
           <div className="navbar-right-logo" aria-label="Partner logos">
-            <a href="https://kiit.ac.in/" target="_blank" rel="noreferrer">
-              <img className="logo logo-kiit" src="/logokiit.png" alt="KIIT" />
-            </a>
-            <a
-              href="https://www.ncl.ac.uk/singapore/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Newcastle University in Singapore"
-            >
-              <img className="logo logo-newcastle" src="/logonewcastle.png" alt="Newcastle University Singapore" />
-            </a>
-            <a href="http://www.iitbbs.ac.in/" target="_blank" rel="noreferrer" aria-label="IIT Bhubaneswar">
-              <img className="logo logo-iitbbsr" src="/iitbbsrlogo.png" alt="IIT Bhubaneswar" />
-            </a>
+            {PARTNER_LOGOS.map((logo) => (
+              <a
+                key={logo.href}
+                href={logo.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={logo.ariaLabel}
+              >
+                <img className={logo.className} src={logo.src} alt={logo.alt} />
+              </a>
+            ))}
           </div>
         </div>
       </nav>
+      <div className="navbar-secondary" aria-label="Partner logos">
+        <div className="navbar-right-logo--mobile">
+          {PARTNER_LOGOS.map((logo) => (
+            <a
+              key={`${logo.href}-mobile`}
+              href={logo.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={logo.ariaLabel}
+            >
+              <img className={logo.className} src={logo.src} alt={logo.alt} />
+            </a>
+          ))}
+        </div>
+      </div>
       {children}
     </header>
-  )
+  );
 }
 
-export default SiteHeader
+export default SiteHeader;

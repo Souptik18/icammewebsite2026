@@ -1,6 +1,7 @@
 import Layout from '../components/Layout'
+import chiefPatronImage from '../assets/img1.jpg'
 
-const SECTION_TITLE_STYLE = { color: '#FF1493', textDecoration: 'underline', textAlign: 'center' }
+const SECTION_TITLE_STYLE = { color: '#0f2f6d', textDecoration: 'none', textAlign: 'center' }
 
 const committeeSections = [
   {
@@ -183,7 +184,7 @@ function Committees() {
           <div className="col-lg-7">
             <div className="committee-card text-center">
               <h2 style={SECTION_TITLE_STYLE}>Chief Patron</h2>
-              <img className="img-fluid mb-3" src="/assets/img/committee/img1.jpg" alt="Chief Patron" />
+                <img className="img-fluid mb-3" src={chiefPatronImage} alt="Chief Patron" />
               <h3>Prof. (Dr.) Achyuta Samanta</h3>
               <h5>Founder, KIIT and KISS</h5>
               <p>Bhubaneswar</p>

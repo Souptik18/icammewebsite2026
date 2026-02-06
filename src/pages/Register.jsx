@@ -1,14 +1,13 @@
-import Layout from '../components/Layout'
+import Layout from "../components/Layout";
 
 function Register() {
   return (
-    <Layout headerVariant="inner">
+    <Layout headerVariant="inner" pageClassName="register-page">
       <section className="container page-section">
-        <h1 className="text-center">
-          <b>Registration Details</b>
-        </h1>
-        <div className="table-responsive mt-4">
-          <table className="table styled-table">
+        <h2 className="register-title">Registration Details</h2>
+
+        <div className="register-table">
+          <table>
             <thead>
               <tr>
                 <th>Category</th>
@@ -23,12 +22,17 @@ function Register() {
                 <td>Rs 10000</td>
               </tr>
               <tr>
-                <td>National delegates (Academia, UG/PG &amp; research scholars)</td>
+                <td>
+                  National delegates (Academia, UG/PG &amp; research scholars)
+                </td>
                 <td>Rs 7500</td>
                 <td>Rs 8000</td>
               </tr>
               <tr>
-                <td>International delegates (Industry, R&amp;D, Academia, students)</td>
+                <td>
+                  International delegates (Industry, R&amp;D, Academia,
+                  students)
+                </td>
                 <td>$ 150/-</td>
                 <td>$ 200/-</td>
               </tr>
@@ -36,33 +40,43 @@ function Register() {
           </table>
         </div>
 
-        <div className="mt-4">
-          <h4 style={{ color: 'darkgoldenrod' }}>
-            Payment of the registration fee should be made through an online transfer. The bank details are as
-            follows:
-          </h4>
-          <div className="registration-bank-details">
-            <h4>Account name: ICAMME 2019</h4>
-            <h4>IFSC Code: 0003951</h4>
-            <h4>Account no: 50100252167080</h4>
-            <h4>Swift Code: HDFCINBBCAL</h4>
-          </div>
+        <p className="register-payment-lead">
+          Payment of the registration fee should be made through an online
+          transfer. The bank details are as follows:
+        </p>
+
+        <div className="register-bank">
+          <p>
+            <strong>Account name:</strong> ICAMME 2026
+          </p>
+          <p>
+            <strong>IFSC Code:</strong> 0003951
+          </p>
+          <p>
+            <strong>Account no:</strong> 50100252167080
+          </p>
+          <p>
+            <strong>Swift Code:</strong> HDFCINBBCAL
+          </p>
         </div>
 
-        <h2 className="text-center" style={{ color: 'blue' }}>
+        <p className="register-note">
           Note - Registration ends on 15 October 2026
-        </h2>
+        </p>
 
-        <div className="text-center mt-5">
-          <p className="download-title">TO DOWNLOAD THE REGISTRATION FORM CLICK HERE.</p>
-          <a href="#" className="download-button" download>
+        <div className="register-download">
+          <p>TO DOWNLOAD THE REGISTRATION FORM CLICK HERE.</p>
+          <a
+            className="register-download-btn"
+            href="/registration-form.pdf"
+            download
+          >
             Download
           </a>
         </div>
       </section>
     </Layout>
-  )
+  );
 }
 
-export default Register
-
+export default Register;

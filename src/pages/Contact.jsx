@@ -2,7 +2,7 @@ import Layout from '../components/Layout'
 
 function Contact() {
   return (
-    <Layout headerVariant="inner">
+    <Layout headerVariant="inner" pageClassName="contact-page">
       <section className="container page-section">
         <div className="contact-page">
           <h2>For any queries regarding paper submission or the technical program, please contact:</h2>
